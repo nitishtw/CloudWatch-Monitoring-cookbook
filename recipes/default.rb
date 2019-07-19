@@ -1,9 +1,3 @@
-#
-# Cookbook:: appserver
-# Recipe:: default
-#
-# Copyright:: 2018, The Authors, All Rights Reserved.
-
 # if node['ec2'].nil?
 #     log('Refusing to install CloudWatch Logs because this does not appear to be an EC2 instance.') { level :warn }
 #     return
