@@ -6,7 +6,7 @@ Install and configure [AWS CloudWatch Monitoring Scripts](http://docs.aws.amazon
 
 See `attributes/default.rb` for the current default values as the listing below may not be current:
 
-- `node['cwmon']['user']` - The user to run the script and own files. Created if necessary. Defaults to `ec2-user`.
+- `node['cwmon']['user']` - The user to run the script. Defaults to `ec2-user`.
 - `node['cwmon']['group']` - The user's group. Defaults to `ec2-user`.
 - `node['cwmon']['base']` - The base directory which will own the installation and files. Defaults to  `/opt/aws/cloudwatch`.
 - `node['cwmon']['version']` - The version of the scripts to install. Defaults to `1.2.1`.
