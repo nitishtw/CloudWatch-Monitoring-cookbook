@@ -27,24 +27,11 @@ else
   Chef::Log.warn("#{node['platform_family']} is not supported")
 end
 
-# Setup user
-# group node['cwmon']['group'] do
-#   action :create
-# end
-
-# user node['cwmon']['user'] do
-#   comment 'CloudWatch custom metrics user'
-#   home "/home/#{node['cwmon']['user']}"
-#   shell '/bin/bash'
-#   group node['cwmon']['group']
-#   manage_home true
-#   action :create
-# end
 
 # Download, extract and install setup script
 directory node['cwmon']['base'] do
-  owner 'root'
-  group 'root'
+  owner node['cwmon']['user']
+  group node['cwmon']['group']
   mode '0777'
   recursive true
   action :create
