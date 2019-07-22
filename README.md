@@ -2,13 +2,12 @@
 
 Install and configure [AWS CloudWatch Monitoring Scripts](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html). These are AWS provided Perl scripts for Linux that monitor memory and disk metrics which are pushed to CloudWatch.
 
-## Requirements
-
 ### Platforms
 
 - Amazon Linux
 - Ubuntu 
 
+=======
 ## Attributes
 
 See `attributes/default.rb` for the current default values as the listing below may not be current:
@@ -30,28 +29,3 @@ See `attributes/default.rb` for the current default values as the listing below 
 
 Put `recipe[default]` in a run list, or `include_recipe 'default'` to ensure that
 the CloudWatch monitoring script is installed and cron'ed on your systems.
-
-## AWS authentication
-
-You instance **must** use an IAM Role for the script to properly work in pushing metrics to CloudWatch. Using IAM instance profiles is a best practice and as such I intentionally did not make provisions for the alternative. An example IAM Profile is:
-
-```json
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Sid": "CustomCloudWatchMetricsAccess",
-      "Action": [
-        "cloudwatch:PutMetricData",
-        "cloudwatch:GetMetricStatistics",
-        "cloudwatch:ListMetrics",        
-        "ec2:DescribeTags"
-      ],
-      "Effect": "Allow",
-      "Resource": [
-        "*"
-      ]
-    }
-  ]
-}
-```
