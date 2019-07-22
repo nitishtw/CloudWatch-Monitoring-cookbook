@@ -7,7 +7,6 @@ Install and configure [AWS CloudWatch Monitoring Scripts](http://docs.aws.amazon
 - Amazon Linux
 - Ubuntu 
 
----
 ## Attributes
 
 See `attributes/default.rb` for the current default values as the listing below may not be current:
@@ -17,7 +16,7 @@ See `attributes/default.rb` for the current default values as the listing below 
 - `node['cwmon']['base']` - The base directory which will own the installation and files. Defaults to  `/opt/aws/cloudwatch`.
 - `node['cwmon']['version']` - The version of the scripts to install. Defaults to `1.2.1`.
 - `node['cwmon']['interval']` - Frequency with which to run script via cron job. Defaults to 5 minutes.
-- `node['cwmon']['options']` - The list of options to pass to the script. Defaults to `--mem-util`. The following options are available:
+- `node['cwmon']['options']` - The list of options to pass to the script. Defaults to `--mem-util`. However, following options are available:
     - `--mem-avail`
     - `--mem-used`
     - `--mem-used-incl-cache-buff`
