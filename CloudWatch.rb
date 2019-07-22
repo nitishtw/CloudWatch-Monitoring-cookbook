@@ -2,17 +2,12 @@ cwmon_url = "http://aws-cloudwatch.s3.amazonaws.com/downloads/CloudWatchMonitori
 cwmon_home_link = "#{node['cwmon']['base']}/aws-scripts-mon"
 cwmon_home = "#{node['cwmon']['base']}/aws-scripts-mon-#{node['cwmon']['version']}"
 cwmon_zip = "#{node['cwmon']['base']}/CloudWatchMonitoringScripts-#{node['cwmon']['version']}.zip"
+options = node['cwmon']['options']
 
 # Install prerequisites
 case node['platform_family']
-when 'rhel'
-  %w[zip unzip perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA].each do |pkg|
-    package pkg do
-      action :install
-    end
-  end
 when 'amazon'
-  %w[zip unzip perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https].each do |pkg|
+  %w[zip unzip perl-Switch perl-DateTime perl-Sys-Syslog perl-LWP-Protocol-https perl-Digest-SHA.x86_64].each do |pkg|
     package pkg do
       action :install
     end
@@ -27,12 +22,11 @@ else
   Chef::Log.warn("#{node['platform_family']} is not supported")
 end
 
-
 # Download, extract and install setup script
 directory node['cwmon']['base'] do
   owner node['cwmon']['user']
   group node['cwmon']['group']
-  mode '0777'
+  mode '777'
   recursive true
   action :create
 end
@@ -41,7 +35,7 @@ remote_file cwmon_zip do
   source cwmon_url
   owner node['cwmon']['user']
   group node['cwmon']['group']
-  mode '0644'
+  mode '744'
   action :create_if_missing
 end
 
@@ -65,4 +59,13 @@ end
 
 file cwmon_zip do
   action :delete
+end
+
+# Configure cron job to send metrics
+cron 'cloudwatch-monitor' do
+  minute "*/#{node['cwmon']['interval']}"
+  user node['cwmon']['user']
+  path '/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+  shell '/bin/bash'
+  command %Q(#{cwmon_home_link}/mon-put-instance-data.pl #{(options)})
 end
