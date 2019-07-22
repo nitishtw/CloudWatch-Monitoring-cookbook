@@ -1,13 +1,13 @@
 # AWS CloudWatch Custom Metrics Cookbook
 
-Install and configure [AWS CloudWatch Monitoring Scripts](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html). These are AWS provided Perl scripts for Linux that monitor memory and disk metrics which are pushed to CloudWatch.
+Install and configure [AWS CloudWatch Monitoring Scripts](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/mon-scripts.html). These are AWS provided Perl scripts for Linux that monitor memory metrics which are pushed to CloudWatch.
 
 ### Platforms
 
 - Amazon Linux
 - Ubuntu 
 
-=======
+---
 ## Attributes
 
 See `attributes/default.rb` for the current default values as the listing below may not be current:
@@ -27,5 +27,5 @@ See `attributes/default.rb` for the current default values as the listing below 
 
 ## Usage
 
-Put `recipe[default]` in a run list, or `include_recipe 'default'` to ensure that
+Put `recipe[CloudWatch]` in a run list, or `include_recipe 'CloudWatch'` to ensure that
 the CloudWatch monitoring script is installed and cron'ed on your systems.
